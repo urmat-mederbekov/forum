@@ -29,7 +29,11 @@ public class MainController {
     private final ResponseService responseService;
 
     @GetMapping
-    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder, Principal principal) {
+
+        if(principal != null){
+            model.addAttribute("isLoggedIn", true);
+        }
 
         var subjects = subjectService.getAll(pageable);
         String uri = uriBuilder.getRequestURI();
@@ -40,7 +44,11 @@ public class MainController {
 
     @GetMapping("/subjects/{id}/responses")
     public String responsesById(@PathVariable String id, Model model, Pageable pageable,
-                                HttpServletRequest uriBuilder){
+                                HttpServletRequest uriBuilder, Principal principal){
+
+        if(principal != null){
+            model.addAttribute("isLoggedIn", true);
+        }
 
         SubjectDTO subjectDTO = subjectService.getSubjectById(Integer.parseInt(id));
         model.addAttribute("dto", subjectDTO);
@@ -53,15 +61,23 @@ public class MainController {
     }
 
     @GetMapping("/profile")
-    public String pageCustomerProfile(Model model, Principal principal)
-    {
+    public String pageCustomerProfile(Model model, Principal principal) {
+
+        if(principal != null){
+            model.addAttribute("isLoggedIn", true);
+        }
+
         var user = userService.getByEmail(principal.getName());
         model.addAttribute("dto", user);
         return "profile";
     }
 
     @GetMapping("/register")
-    public String registerPage(Model model) {
+    public String registerPage(Model model, Principal principal) {
+
+        if(principal != null){
+            model.addAttribute("isLoggedIn", true);
+        }
 
         if (!model.containsAttribute("dto")) {
             model.addAttribute("dto", new CustomerRegisterForm());
@@ -71,7 +87,13 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
+    public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error,
+                            Model model, Principal principal) {
+
+        if(principal != null){
+            model.addAttribute("isLoggedIn", true);
+        }
+
         model.addAttribute("error", error);
         return "login";
     }
