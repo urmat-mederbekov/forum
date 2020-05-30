@@ -18,11 +18,13 @@
     <div class="responses">
 
     </div>
-    <form class="responseForm" action="/comment" method="post">
-        <input type="hidden" name="id" value="${dto.id}">
-        <textarea name="text"></textarea>
-        <button type="submit" class="send">Send</button>
-    </form>
+    <#if isLoggedIn??>
+        <form class="responseForm" action="/comment" method="post">
+            <input type="hidden" name="id" value="${dto.id}">
+            <textarea name="text"></textarea>
+            <button type="submit" class="send">Send</button>
+        </form>
+    </#if>
 
     <#include "partials/pagination.ftlh">
 </@main.renderWith>
