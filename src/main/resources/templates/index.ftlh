@@ -32,15 +32,16 @@
             <p>There is currently no subject. Create a new one</p>
         </#if>
     </div>
-
-    <form class="subjectForm" action="/api/subjects" method="post">
-        <#if _csrf??>
-            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-        </#if>
-        <input type="text" name="name">
-        <textarea name="content"></textarea>
-    <button type="submit" class="send">Send</button>
-    </form>
+    <#if isLoggedIn??>
+        <form class="subjectForm" action="/api/subjects" method="post">
+            <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+            </#if>
+            <input type="text" name="name">
+            <textarea name="content"></textarea>
+            <button type="submit" class="send">Send</button>
+        </form>
+    </#if>
 
     <#include "partials/pagination.ftlh">
 </@main.renderWith>
