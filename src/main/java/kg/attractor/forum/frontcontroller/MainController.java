@@ -1,6 +1,5 @@
 package kg.attractor.forum.frontcontroller;
 
-import kg.attractor.forum.dto.ResponseDTO;
 import kg.attractor.forum.dto.SubjectDTO;
 import kg.attractor.forum.model.CustomerRegisterForm;
 import kg.attractor.forum.service.ResponseService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
